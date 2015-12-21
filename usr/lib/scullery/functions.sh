@@ -12,7 +12,7 @@ checkout_romdir(){
     tmp=""
     for f in $romdir; do
         c=$((c+1))
-        tmp=" $c $f "
+        tmp= $c $f 
     done
     echo $tmp
 }

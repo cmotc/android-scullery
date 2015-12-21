@@ -1,5 +1,6 @@
 #! /bin/sh
 #workdir="$HOME/Projects/Android/Scullery"
+apptitle="Android Scullery"
 workdir=$(pwd)
 scullibdir="/usr/lib/scullery"
 scullplugdir="$HOME/.config/scullery/plugins"
@@ -132,9 +133,24 @@ else
     echo "Critical Error! Invalid interface style specified."
     exit 6
 fi
-    . $scullibdir/functions.sh
+. $scullibdir/functions.sh
 if [ -f "$rompath" ]; then
     . $scullibdir/extract_rom && run_extract_rom $rompath
 else
+    MENU_OPTION=$(dialog --title "$apptitle" --menu 14 80 12 \
+        1 "Setup Working Folder from ROM" \
+        2 "Root ROM" \
+        3 "Add BusyBox to ROM" \
+        4 "Disable startup sounds" \
+        5 "Zipalign applications" \
+        6 "Change ROM wipe status" \
+        7 "Change ROM name" \
+        8 "Show ROM info from Working Folder" \
+        9 "Advanced Options" \
+        10 "Porting Helpers(For gathering info to compile from source)" \
+        11 "Compile ROM" \
+        12 "Show detailed help" \
+        13 "Dump settings from Scullery" \
+    3>&1 1>&2 2>&3 3>&-)
     . $scullibdir/extract_rom && run_extract_rom
 fi
