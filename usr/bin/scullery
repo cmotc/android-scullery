@@ -19,11 +19,21 @@ fi
 show_help(){
     echo "Welcome to Android Scullery! This is a fully re-written version of the
 Android Kitchen ROM customization tools. It's a GNU/Linux shell script written
-to target the Dash shell, for now. Might work with Cygwin, I guess. Probably.
-But that's not important because the only important thing about Windows is
-installing a FOSS system over it. What is important is that this is intended
-to provide a more sane, configurable version of the Android Kitchen which can
-be packaged for many GNU/Linux distributions."
+to target the Dash shell, but it should work with any shell. Since you're asking
+for help, I bet you want to know these parameters:
+        -h || -?)
+        -v) Run with verbose output.
+        -d) Specify a working directory.
+        -r) Specify a ROM directory where scullery will look for ROMs to modify.
+        -f) Specify a ROM file/folder to modify.
+        -l) Specify a path to look for the library of scripts.
+        -p) Specify a plugin directory to look for custom scripts in.
+        -i) Specify a style of interface to present when options are required.
+            term || cli : Run with terminal interface.
+            diag || wiz : Run with wizard-like GUI.
+            gui : Run with frontend.
+        -e) Install
+"
 }
 
 # A POSIX variable
@@ -118,8 +128,10 @@ elif [ $ifacestyle == "gui" ]
     exit 5
 else 
     echo "Critical Error! Invalid interface style specified."
+    exit 6
 fi
 
-if [ -f "$ROMPATH" ]; then
 
+if [ -f "$rompath" ]; then
+    . $scullibdir/extract_rom "$rompath"
 fi

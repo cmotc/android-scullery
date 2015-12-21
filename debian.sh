@@ -4,6 +4,7 @@ SOURCEBINPATH=.
 SOURCEBIN=scullery
 SOURCECFG="scullery.rc"
 SOURCEDOC=README.md
+LIBFOLDER=scullery
 DEBFOLDER=android-scullery
 DEBVERSION=$(date +%Y%m%d)
 
@@ -35,6 +36,9 @@ mv debian/rules.new debian/rules
 # debian/install must contain the list of scripts to install 
 # as well as the target directory
 echo usr/bin/$SOURCEBIN usr/bin > debian/install 
+for f in usr/lib/scullery/*; do
+    echo usr/lib/$LIBFOLDER/$f usr/lib/$LIBFOLDER >> debian/install 
+done
 echo etc/$SOURCECFG etc >> debian/install 
 echo $SOURCEDOC usr/share/doc/$DEBFOLDER >> debian/install
 

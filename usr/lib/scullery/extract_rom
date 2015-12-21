@@ -1,0 +1,13 @@
+#! /bin/sh
+EXTRACT_ROM_MESSAGE="CREATE WORKING FOLDER FOR ROM
+==============================
+
+Ensure there is at least one ROM under the \"$romdir\" folder!
+
+Select an option:
+echo
+s - Show supported formats
+x - Abort, don't create working folder
+
+Or press Enter to continue?"
+
