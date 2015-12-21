@@ -80,7 +80,7 @@ if [ ! -d "$scullibdir" ]; then
     echo "Critical Error! Library folder not found!"
     exit 2
 fi
-if [ ! -f "$scullibdir/*" ]; then
+if [ ! -f "$scullibdir/extract_rom" ]; then
     echo "Critical Error! Library folder not populated!"
     exit 3
 fi
