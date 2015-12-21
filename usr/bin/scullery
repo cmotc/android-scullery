@@ -109,7 +109,7 @@ whiptail or dialog.)"
         NOGUI_DIALOG="true"
         . wgdda
     fi
-elif [ [ "$ifacestyle" == "dial" ] || [ "$ifacestyle" == "wiz" ] ]; then
+elif [ [ "$ifacestyle" = "dial" ] || [ "$ifacestyle" = "wiz" ] ]; then
     if [ ! -f /usr/bin/wgdda ]; then
         if [ -f /usr/bin/zenity ]; then
             alias dialog=zenity
@@ -124,7 +124,7 @@ zenity or xdialog.)"
         NOGUI_DIALOG=""
         . wgdda
     fi
-elif [ "$ifacestyle" == "gui" ]
+elif [ "$ifacestyle" = "gui" ]
     echo "Critical Error! Interface not yet supported."
     exit 5
 else 
@@ -133,7 +133,7 @@ else
 fi
     . $scullibdir/functions.sh
 if [ -f "$rompath" ]; then
-    . $scullibdir/extract_rom "$rompath"
+    . $scullibdir/extract_rom && run_extract_rom $rompath
 else
     
 fi

@@ -55,7 +55,8 @@ Script Cloning Checklist
 [Complete List](https://github.com/cmotc/android-scullery/blob/master/cloneme.list)
 
 ###Completed/In Progress
-  * ./menu
+  * ./menu ~ ./usr/bin/scullery This script loads defaults, does argument
+    parsing, and launches the tools.
   * ./scripts/check\_rom ~ ./usr/lib/extract\_rom Some of this script's
     functionality is also represented in libfunctions.sh.
 

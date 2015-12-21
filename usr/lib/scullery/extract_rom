@@ -22,6 +22,10 @@ extract_or_show(){
         3>&1 1>&2 2>&3 3>&- )
 }
 
+actually_extract(){
+    echo "$1"
+}
+
 loopover(){
     if [ $EXTRACT_OR_SHOW = 0 ]; then
         extract_or_show
@@ -35,8 +39,15 @@ loopover(){
     fi
 }
 
-while [ $EXTRACT_OR_SHOW = 0 ]; do
-    loopover
-done
-loopover
-echo $ROMS_AVAILABLE
+run_extract_rom(){
+    ROM_FILE="$1"
+    if [ ! -f "$ROM_FILE" ]; then
+        while [ $EXTRACT_OR_SHOW = 0 ]; do
+            loopover
+        done
+        loopover
+        echo $ROMS_AVAILABLE
+    else
+        actually_extract "$ROM_FILE"
+    fi
+}
