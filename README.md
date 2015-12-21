@@ -9,6 +9,12 @@ it presents dialog/zenity menus by default, it can be passed parameters at the
 terminal, or a frontend can be created to craft a command with the parameters
 and run it in a shell.
 
+This isn't intended to reflect any criticism of the Android Kitchen itself as a
+means to achieve it's goals. It's just that it has relatively limited
+capabilities, hasn't been updated in over 2 years, and isn't packageable. I'm
+not going to hassle dsixda to make all the changes I want, so I'm just rewriting
+it.
+
 Usage
 -----
 While I'm still developing this framework, I'm just going to copy the show_help
