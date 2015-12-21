@@ -135,5 +135,5 @@ fi
 if [ -f "$rompath" ]; then
     . $scullibdir/extract_rom && run_extract_rom $rompath
 else
-    
+    . $scullibdir/extract_rom && run_extract_rom
 fi

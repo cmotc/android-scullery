@@ -36,6 +36,7 @@ loopover(){
         WHICH_ROM=$(dialog --title "$EXTRACT_ROM_TITLE" --menu "$EXTRACT_ROM_FROM_AVAIL" 14 80 2 \
             "$ROMS_AVAILABLE" \
             3>&1 1>&2 2>&3 3>&-)
+        actually_extract "$WHICH_ROM"
     fi
 }
 
