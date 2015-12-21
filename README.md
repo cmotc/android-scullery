@@ -12,8 +12,8 @@ and run it in a shell.
 This isn't intended to reflect any criticism of the Android Kitchen itself as a
 means to achieve it's goals. It's just that it has relatively limited
 capabilities, hasn't been updated in over 2 years, and isn't packageable. I'm
-not going to hassle dsixda to make all the changes I want, so I'm just rewriting
-it.
+not going to hassle @dsixda to make all the changes I want, so I'm just
+rewriting it.
 
 Usage
 -----
@@ -71,14 +71,17 @@ I don't care to bundle tools to target Windows. I also don't care to make it
 work on Mac's, necessarily, but it probably will without much effort. So the
 following scripts have had their functionality significantly changed.
 
-  * ./scripts/init_kitchen ~ This script mostly checks for the proper
+  * ./scripts/init\_kitchen ~ This script mostly checks for the proper
     configuration of the necessary dependencies for running the other scripts.
     This is mostly subsumed by allowing the dependencies to be covered by the
     package manager, and what's left is dealt with in functions.sh.
-  * ./scripts/check_binaries ~ This script mostly checks for the proper
+  * ./scripts/check\_binaries ~ This script mostly checks for the proper
     configuration of the necessary dependencies for running the other scripts.
     This is mostly subsumed by allowing the dependencies to be covered by the
     package manager, and what's left is dealt with in functions.sh.
+  * ./scripts/check\_multiple\_working ~ This script is obsolete. It will be
+    replaced with a menu which allows you to simply select the desired working
+    folder.
 
 Scullery API
 ------------

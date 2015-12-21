@@ -1,5 +1,6 @@
 #! /bin/sh
-workdir="$HOME/Projects/Android/Scullery"
+#workdir="$HOME/Projects/Android/Scullery"
+workdir=$(pwd)
 scullibdir="/usr/lib/scullery"
 scullplugdir="$HOME/.config/scullery/plugins"
 ifacestyle="term"
