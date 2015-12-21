@@ -3,6 +3,8 @@ workdir="$HOME/Projects/Android/Scullery"
 scullibdir="/usr/lib/scullery"
 scullplugdir="$HOME/.config/scullery/plugins"
 ifacestyle="term"
+romdir="$HOME/Projects/Android/ROMS/"
+rompath="/this/is/not/a/real/folder/update.zip"
 version=""
 if [ -f "$HOME/.scullery" ]; then
     . "$HOME/.scullery"
@@ -30,7 +32,7 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 # Initialize our own variables:
 verbose=0
 
-while getopts "h?vdlpi:" opt; do
+while getopts "h?vdrflpie:" opt; do
     case "$opt" in
     h|\?)
         show_help
@@ -40,11 +42,17 @@ while getopts "h?vdlpi:" opt; do
         ;;
     d)  workdir=$OPTARG
         ;;
+    r)  romdir=$OPTARG
+        ;;
+    f)  rompath=$OPTARG
+        ;;
     l)  scullibdir=$OPTARG
         ;;
     p)  scullplugdir=$OPTARG
         ;;
     i)  ifacestyle=$OPTARG
+        ;;
+    i)  installdeps="true"
         ;;
     esac
 done
@@ -52,6 +60,10 @@ done
 shift $((OPTIND-1))
 
 [ "$1" = "--" ] && shift
+
+if [ "$installdeps" == "true" ]; then
+    sudo apt-get install abootimg android-tools*
+fi
 
 if [ ! -d "$scullibdir" ]; then
     echo "Critical Error! Library folder not found!"
@@ -63,6 +75,10 @@ if [ ! -f "$scullibdir/*" ]; then
 fi
 if [ ! -d "$workdir" ]; then
     mkdir -p "$workdir"
+fi
+if [ ! -d "$romdir" ]; then
+    mkdir -p "$romdir"
+    mkdir -p "$romdir/compiled_roms"
 fi
 if [ ! -d "$scullplugdir" ]; then
     mkdir -p "$scullplugdir"
@@ -104,3 +120,6 @@ else
     echo "Critical Error! Invalid interface style specified."
 fi
 
+if [ -f "$ROMPATH" ]; then
+
+fi

@@ -35,11 +35,28 @@ mv debian/rules.new debian/rules
 # debian/install must contain the list of scripts to install 
 # as well as the target directory
 echo usr/bin/$SOURCEBIN usr/bin > debian/install 
-echo etc/$SOURCECFG etc > debian/install 
+echo etc/$SOURCECFG etc >> debian/install 
 echo $SOURCEDOC usr/share/doc/$DEBFOLDER >> debian/install
+
+echo "Source: $DEBFOLDER
+Section: unknown
+Priority: optional
+Maintainer: cmotc <cmotc@openmailbox.org>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://www.github.com/cmotc/android-scullery
+#Vcs-Git: git@github.com:cmotc/android-scullery
+#Vcs-Browser: https://www.github.com/cmotc/android-scullery
+
+Package: $DEBFOLDER
+Architecture: all
+Depends: abootimg, android-tools-adb, android-tools-fastboot, android-tools-fsutils, heimdall-flash, \${misc:Depends}
+Description: A tool for customizing Android ROMs.
+ ." > debian/control 
 
 # Remove the example files
 rm debian/*.ex
+rm debian/*.EX
 
 # Build the package.
 # You  will get a lot of warnings and ../somescripts_0.1-1_i386.deb
