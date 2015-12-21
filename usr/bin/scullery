@@ -68,24 +68,34 @@ if [ ! -d "$scullplugdir" ]; then
     mkdir -p "$scullplugdir"
 fi
 if [ [ $ifacestyle == "term" ] || [ $ifacestyle == "cli" ] ]; then
-    if [ -f /usr/bin/whiptail ]; then
-        alias dialog=whiptail
-    elif [ -f /usr/bin/dialog ]; then
-	alias dialog=dialog
-    else
-        echo "Critical Error! Interface Dependency not satisfied(Install either
+    if [ ! -f /usr/bin/wgdda ]; then
+        if [ -f /usr/bin/whiptail ]; then
+            alias dialog=whiptail
+        elif [ -f /usr/bin/dialog ]; then
+            alias dialog=dialog
+        else
+            echo "Critical Error! Interface Dependency not satisfied(Install either
 whiptail or dialog.)"
-        exit 4
+            exit 4
+        fi
+    else
+        NOGUI_DIALOG="true"
+        . wgdda
     fi
 elif [ [ $ifacestyle == "dial" ] || [ $ifacestyle == "wiz" ] ]; then
-    if [ -f /usr/bin/zenity ]; then
-        alias dialog=zenity
-    elif [ -f /usr/bin/xdialog ]; then
-	alias dialog=xdialog
-    else
-        echo "Critical Error! Interface Dependency not satisfied(Install either
+    if [ ! -f /usr/bin/wgdda ]; then
+        if [ -f /usr/bin/zenity ]; then
+            alias dialog=zenity
+        elif [ -f /usr/bin/xdialog ]; then
+            alias dialog=xdialog
+        else
+            echo "Critical Error! Interface Dependency not satisfied(Install either
 zenity or xdialog.)"
-        exit 4
+            exit 4
+        fi
+    else
+        NOGUI_DIALOG=""
+        . wgdda
     fi
 elif [ $ifacestyle == "gui" ]
     echo "Critical Error! Interface not yet supported."
