@@ -130,8 +130,8 @@ else
     echo "Critical Error! Invalid interface style specified."
     exit 6
 fi
-
-
 if [ -f "$rompath" ]; then
     . $scullibdir/extract_rom "$rompath"
+else
+
 fi

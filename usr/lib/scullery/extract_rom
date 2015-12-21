@@ -1,13 +1,51 @@
 #! /bin/sh
-EXTRACT_ROM_MESSAGE="CREATE WORKING FOLDER FOR ROM
-==============================
 
-Ensure there is at least one ROM under the \"$romdir\" folder!
+# roughly maps onto the check_rom script in the original Android Kitchen, which
+# validates an input ROM and sets up a working directory. Some of the check_rom
+# functionality was separated into other scripts. That will be done with both
+# scripts and functions here.
+
+EXTRACT_ROM_TITLE="CREATE WORKING FOLDER FOR ROM"
+EXTRACT_ROM_MESSAGE="Ensure there is at least one ROM under the \"$romdir\" folder!
 
 Select an option:
-echo
-s - Show supported formats
-x - Abort, don't create working folder
+"
+EXTRACT_OR_SHOW=0
 
-Or press Enter to continue?"
+ROM_FORMATS_MESSAGE=$(cat "$scullibdir/formats.txt")
+echo $ROM_FORMATS_MESSAGE
 
+extract_or_show(){
+    EXTRACT_OR_SHOW=$(dialog --title "$EXTRACT_ROM_TITLE" --menu "$EXTRACT_ROM_MESSAGE" 14 60 2 \
+        1 "Show supported formats:" \
+        2 "Continue to ROM select menu" \
+        3>&1 1>&2 2>&3 3>&- )
+}
+
+list_roms_in_folder(){
+    c=0
+    tmp=""
+    for f in $romdir; do
+        c=$((c+1))
+        tmp=" $c $f "
+    done
+    echo $tmp
+}
+
+loopover(){
+    if [ $EXTRACT_OR_SHOW = 0 ]; then
+        extract_or_show
+    elif [ $EXTRACT_OR_SHOW = 1 ]; then
+        dialog --title "$EXTRACT_ROM_TITLE" --msgbox "$ROM_FORMATS_MESSAGE" 14 80
+    elif [ $EXTRACT_OR_SHOW = 2 ]; then
+        ROMS_AVAILABLE=list_roms_in_folder
+        WHICH_ROM=$(dialog --title "$EXTRACT_ROM_TITLE" --menu "$EXTRACT_ROM_FROM_AVAIL" 14 80 2 \
+            "$ROMS_AVAILABLE" \
+            3>&1 1>&2 2>&3 3>&-)
+    fi
+}
+
+while [ $EXTRACT_OR_SHOW = 0 ]; do
+    loopover
+done
+loopover

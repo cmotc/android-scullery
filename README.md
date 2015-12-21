@@ -1,4 +1,6 @@
-# android-scullery
+Android Scullery
+================
+
 A complete rewrite of Android Kitchen. It presents the same basic messages and
 options, and in fact Scullery was written with Kitchen as a reference. It's goal
 is to implement all the features in a way which is easy to package for a linux
@@ -6,6 +8,11 @@ distribution or use with a graphical interface. To that end, it presents
 dialog/zenity menus by default, it can be passed parameters at the terminal, or
 a frontend can be created to craft a command with the parameters and run it in
 a shell.
+
+Usage
+-----
+While I'm still developing this framework, I'm just going to copy the show_help
+function into the readme file whole.
 
         show_help(){
             echo "Welcome to Android Scullery! This is a fully re-written version of the
@@ -26,3 +33,28 @@ a shell.
             -e) Install
             "
         }
+
+Goals
+-----
+Run in lots of ways, including being callable in a one-line command and being
+installed in a system's $PATH.  
+
+Provide a better way of developing plugins and extensions to the Kitchen.  
+
+Provide shell scripts with pre-built functions for querying and manipulating
+common Android ROM related needs.  
+
+Equivalents Chart
+-----------------
+This is not a one-to-one recreation of the Android Kitchen, but where possible
+equivalent folders and functions will be listed below.  
+
+Script Cloning Checklist
+------------------------
+
+  * ./menu
+  * ./scripts/check\_rom ~ ./usr/lib/extract\_rom
+
+Scullery API
+------------
+Functions for implementing plugins to the kitchen.  
