@@ -54,8 +54,16 @@ Script Cloning Checklist
 
 [Complete List](https://github.com/cmotc/android-scullery/blob/master/cloneme.list)
 
+###Completed/In Progress
   * ./menu
   * ./scripts/check\_rom ~ ./usr/lib/extract\_rom
+
+###Not Necessary/Not Targeted
+I don't care to bundle tools to target Windows. I also don't care to make it
+work on Mac's, necessarily, but it probably will without much effort. So the
+following scripts have had their functionality significantly changed.
+
+  * ./scripts
 
 Scullery API
 ------------

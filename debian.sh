@@ -27,8 +27,10 @@ dh_make -s --indep --createorig
 mkdir -p debian/tmp
 cp * debian/tmp -Rv
 
-echo "export version=$DEBVERSION" >> debian/tmp/etc/scullery.rc
-echo "export workdir=\$HOME/Projects/Android/Scullery" >> debian/tmp/etc/scullery.rc
+echo "#! /bin/sh" > debian/tmp/etc/scullery.rc
+echo "export version=$DEBVERSION" >> debian/tmp/etc/$SOURCECFG
+echo "export workdir=\$HOME/Projects/Android/Scullery" >> debian/tmp/etc/$SOURCECFG
+
 # Remove make calls
 grep -v makefile debian/rules > debian/rules.new 
 mv debian/rules.new debian/rules 
@@ -36,7 +38,7 @@ mv debian/rules.new debian/rules
 # debian/install must contain the list of scripts to install 
 # as well as the target directory
 echo usr/bin/$SOURCEBIN usr/bin > debian/install 
-for f in usr/lib/scullery/*; do
+for f in usr/lib/$LIBFOLDER/*; do
     echo usr/lib/$LIBFOLDER/$f usr/lib/$LIBFOLDER >> debian/install 
 done
 echo etc/$SOURCECFG etc >> debian/install 
