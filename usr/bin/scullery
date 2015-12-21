@@ -6,6 +6,7 @@ ifacestyle="term"
 romdir="$HOME/Projects/Android/ROMS/"
 rompath="/this/is/not/a/real/folder/update.zip"
 version=""
+installdeps="false"
 if [ -f "$HOME/.scullery" ]; then
     . "$HOME/.scullery"
 elif [ -f /etc/scullery.rc ]; then
@@ -71,7 +72,7 @@ shift $((OPTIND-1))
 
 [ "$1" = "--" ] && shift
 
-if [ "$installdeps" == "true" ]; then
+if [ "$installdeps" = "true" ]; then
     sudo apt-get install abootimg android-tools*
 fi
 
@@ -93,7 +94,7 @@ fi
 if [ ! -d "$scullplugdir" ]; then
     mkdir -p "$scullplugdir"
 fi
-if [ [ $ifacestyle == "term" ] || [ $ifacestyle == "cli" ] ]; then
+if [ [ "$ifacestyle" = "term" ] || [ "$ifacestyle" = "cli" ] ]; then
     if [ ! -f /usr/bin/wgdda ]; then
         if [ -f /usr/bin/whiptail ]; then
             alias dialog=whiptail
@@ -108,7 +109,7 @@ whiptail or dialog.)"
         NOGUI_DIALOG="true"
         . wgdda
     fi
-elif [ [ $ifacestyle == "dial" ] || [ $ifacestyle == "wiz" ] ]; then
+elif [ [ "$ifacestyle" == "dial" ] || [ "$ifacestyle" == "wiz" ] ]; then
     if [ ! -f /usr/bin/wgdda ]; then
         if [ -f /usr/bin/zenity ]; then
             alias dialog=zenity
@@ -123,15 +124,16 @@ zenity or xdialog.)"
         NOGUI_DIALOG=""
         . wgdda
     fi
-elif [ $ifacestyle == "gui" ]
+elif [ "$ifacestyle" == "gui" ]
     echo "Critical Error! Interface not yet supported."
     exit 5
 else 
     echo "Critical Error! Invalid interface style specified."
     exit 6
 fi
+    . $scullibdir/functions.sh
 if [ -f "$rompath" ]; then
     . $scullibdir/extract_rom "$rompath"
 else
-
+    
 fi

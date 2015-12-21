@@ -22,23 +22,13 @@ extract_or_show(){
         3>&1 1>&2 2>&3 3>&- )
 }
 
-list_roms_in_folder(){
-    c=0
-    tmp=""
-    for f in $romdir; do
-        c=$((c+1))
-        tmp=" $c $f "
-    done
-    echo $tmp
-}
-
 loopover(){
     if [ $EXTRACT_OR_SHOW = 0 ]; then
         extract_or_show
     elif [ $EXTRACT_OR_SHOW = 1 ]; then
         dialog --title "$EXTRACT_ROM_TITLE" --msgbox "$ROM_FORMATS_MESSAGE" 14 80
     elif [ $EXTRACT_OR_SHOW = 2 ]; then
-        ROMS_AVAILABLE=list_roms_in_folder
+        ROMS_AVAILABLE=checkout_romdir
         WHICH_ROM=$(dialog --title "$EXTRACT_ROM_TITLE" --menu "$EXTRACT_ROM_FROM_AVAIL" 14 80 2 \
             "$ROMS_AVAILABLE" \
             3>&1 1>&2 2>&3 3>&-)
@@ -49,3 +39,4 @@ while [ $EXTRACT_OR_SHOW = 0 ]; do
     loopover
 done
 loopover
+echo $ROMS_AVAILABLE

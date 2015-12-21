@@ -39,7 +39,7 @@ mv debian/rules.new debian/rules
 # as well as the target directory
 echo usr/bin/$SOURCEBIN usr/bin > debian/install 
 for f in usr/lib/$LIBFOLDER/*; do
-    echo usr/lib/$LIBFOLDER/$f usr/lib/$LIBFOLDER >> debian/install 
+    echo $f usr/lib/$LIBFOLDER >> debian/install 
 done
 echo etc/$SOURCECFG etc >> debian/install 
 echo $SOURCEDOC usr/share/doc/$DEBFOLDER >> debian/install
@@ -56,7 +56,7 @@ Homepage: https://www.github.com/cmotc/android-scullery
 
 Package: $DEBFOLDER
 Architecture: all
-Depends: abootimg, android-tools-adb, android-tools-fastboot, android-tools-fsutils, heimdall-flash, unyaffs, gcc, java, perl, sed, wget, od, zip, unzip \${misc:Depends}
+Depends: abootimg, android-tools-adb, android-tools-fastboot, android-tools-fsutils, heimdall-flash, unyaffs, gcc, default-jdk, default-jre, perl, sed, wget, zip, unzip \${misc:Depends}
 Description: A tool for customizing Android ROMs.
  ." > debian/control 
 

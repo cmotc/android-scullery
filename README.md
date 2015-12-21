@@ -56,7 +56,8 @@ Script Cloning Checklist
 
 ###Completed/In Progress
   * ./menu
-  * ./scripts/check\_rom ~ ./usr/lib/extract\_rom
+  * ./scripts/check\_rom ~ ./usr/lib/extract\_rom Some of this script's
+    functionality is also represented in libfunctions.sh.
 
 ###Not Necessary/Not Targeted
 I don't care to bundle tools to target Windows. I also don't care to make it
