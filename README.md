@@ -3,11 +3,11 @@ Android Scullery
 
 A complete rewrite of Android Kitchen. It presents the same basic messages and
 options, and in fact Scullery was written with Kitchen as a reference. It's goal
-is to implement all the features in a way which is easy to package for a linux
-distribution or use with a graphical interface. To that end, it presents
-dialog/zenity menus by default, it can be passed parameters at the terminal, or
-a frontend can be created to craft a command with the parameters and run it in
-a shell.
+is to implement all the features in a way which is easy to package for a Linux
+(GNU or otherwise) distribution or use with a graphical interface. To that end,
+it presents dialog/zenity menus by default, it can be passed parameters at the
+terminal, or a frontend can be created to craft a command with the parameters
+and run it in a shell.
 
 Usage
 -----
@@ -63,8 +63,23 @@ I don't care to bundle tools to target Windows. I also don't care to make it
 work on Mac's, necessarily, but it probably will without much effort. So the
 following scripts have had their functionality significantly changed.
 
-  * ./scripts
+  * ./scripts/init_kitchen ~ This script mostly checks for the proper
+    configuration of the necessary dependencies for running the other scripts.
+    This is mostly subsumed by allowing the dependencies to be covered by the
+    package manager, and what's left is dealt with in functions.sh.
+  * ./scripts/check_binaries ~ This script mostly checks for the proper
+    configuration of the necessary dependencies for running the other scripts.
+    This is mostly subsumed by allowing the dependencies to be covered by the
+    package manager, and what's left is dealt with in functions.sh.
 
 Scullery API
 ------------
-Functions for implementing plugins to the kitchen.  
+Functions for implementing plugins to the kitchen. To include these in your code
+use:  
+
+        . /usr/lib/scullery/libfunctions.sh  
+
+note that this will not load your configuration file. That is included by the
+scullery script itself and isn't necessary to load. A thin wrapper should be
+possible to create around scripts created with these functions which allows you
+to run it without running the scullery.

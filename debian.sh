@@ -56,7 +56,7 @@ Homepage: https://www.github.com/cmotc/android-scullery
 
 Package: $DEBFOLDER
 Architecture: all
-Depends: abootimg, android-tools-adb, android-tools-fastboot, android-tools-fsutils, heimdall-flash, unyaffs, \${misc:Depends}
+Depends: abootimg, android-tools-adb, android-tools-fastboot, android-tools-fsutils, heimdall-flash, unyaffs, gcc, java, perl, sed, wget, od, zip, unzip \${misc:Depends}
 Description: A tool for customizing Android ROMs.
  ." > debian/control 
 
