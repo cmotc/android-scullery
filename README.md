@@ -30,7 +30,7 @@ function into the readme file whole.
                 term || cli : Run with terminal interface.
                 diag || wiz : Run with wizard-like GUI.
                 gui : Run with frontend.
-            -e) Install
+            -e) Install dependencies(Debian only for now)
             "
         }
 
