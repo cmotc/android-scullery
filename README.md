@@ -52,6 +52,8 @@ equivalent folders and functions will be listed below.
 Script Cloning Checklist
 ------------------------
 
+[Complete List](https://github.com/cmotc/android-scullery/blob/master/cloneme.list)
+
   * ./menu
   * ./scripts/check\_rom ~ ./usr/lib/extract\_rom
 
