@@ -8,7 +8,7 @@ echo -n "kitchen " && echo " $WC_RESULTS_KITCHEN"
 echo -n "scullery" && echo " $WC_RESULTS_SCULLERY"
 KITCHEN_ARRAY=$(echo $WC_RESULTS_KITCHEN | tr " " "\n") && KLINES=$(cat "../android-kitchen/menu" "../android-kitchen/scripts/check_rom" "../android-kitchen/scripts/init_kitchen" "../android-kitchen/scripts/check_binaries" | wc -l)
 SCULLERY_ARRAY=$(echo $WC_RESULTS_SCULLERY | tr " " "\n") && SLINES=$(cat "./usr/bin/scullery" "./usr/lib/scullery/extract_rom" "./usr/lib/scullery/functions.sh" | wc -l)
-echo $(($KLINES-$SLINES))
+echo "             $(($KLINES-$SLINES))"
 
 KITCHLINT=$(shlint "../android-kitchen/menu" "../android-kitchen/scripts/check_rom" "../android-kitchen/scripts/init_kitchen" "../android-kitchen/scripts/check_binaries" \
             3>&1 1>&2 2>&3 3>&-)
