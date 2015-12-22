@@ -7,7 +7,10 @@ is to implement all the features in a way which is easy to package for a Linux
 (GNU or otherwise) distribution or use with a graphical interface. To that end,
 it presents dialog/zenity menus by default, it can be passed parameters at the
 terminal, or a frontend can be created to craft a command with the parameters
-and run it in a shell.
+and run it in a shell. This being written with Dash and is avoiding any
+Bash-specific syntax, but it'll definitely run in Bash and probably run in
+mksh, maybe some more shells. Whichever ones comply with the same basic
+standards as Dash.
 
 This isn't intended to reflect any criticism of the Android Kitchen itself as a
 means to achieve it's goals. It's just that it has relatively limited
