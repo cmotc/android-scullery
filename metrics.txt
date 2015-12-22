@@ -1,6 +1,6 @@
             lines  words   chars
 kitchen     439    1324    9643
-scullery    247     908    7187
+scullery    238     899    7106
 
 Linting currently cloned Android Kitchen scripts
 

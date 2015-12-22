@@ -52,24 +52,15 @@ while getopts "h?vqdrflpie:" opt; do
         show_help
         exit 0
         ;;
-    v)  verbose=1
-        ;;
-    q)  quiet=1
-        ;;
-    d)  workdir=$OPTARG
-        ;;
-    r)  romdir=$OPTARG
-        ;;
-    f)  rompath=$OPTARG
-        ;;
-    l)  scullibdir=$OPTARG
-        ;;
-    p)  scullplugdir=$OPTARG
-        ;;
-    i)  ifacestyle=$OPTARG
-        ;;
-    i)  installdeps="true"
-        ;;
+    v)  verbose=1;;
+    q)  quiet=1;;
+    d)  workdir=$OPTARG;;
+    r)  romdir=$OPTARG;;
+    f)  rompath=$OPTARG;;
+    l)  scullibdir=$OPTARG;;
+    p)  scullplugdir=$OPTARG;;
+    i)  ifacestyle=$OPTARG;;
+    i)  installdeps="true";;
     esac
 done
 
