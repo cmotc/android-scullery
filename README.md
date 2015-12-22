@@ -68,6 +68,7 @@ Script Cloning Checklist
     parsing, and launches the tools. (Done)
   * ./scripts/check\_rom ~ ./usr/lib/extract\_rom Some of this script's
     functionality is also represented in libfunctions.sh. Mostly done.
+    * scripts/make\_backup\_working
   * ./scripts/do\_root ~ This is one of the closest to the original kitchen
     scripts. Pre-rooting a packaged ROM is pretty straightforward. Not started
     yet.
@@ -121,7 +122,7 @@ use:
 
         #!/bin/sh
         export quiet=1
-        . /usr/bin/scullery  
+        . /usr/bin/scullery
 
 note that this will not load your configuration file. That is included by the
 scullery script itself and isn't necessary to load. A thin wrapper should be

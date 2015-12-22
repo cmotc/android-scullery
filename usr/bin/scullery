@@ -1,166 +1,168 @@
 #! /bin/sh
-#workdir="$HOME/Projects/Android/Scullery"
-apptitle="Android Scullery"
-workdir=$(pwd)
-scullibdir="/usr/lib/scullery"
-scullplugdir="$HOME/.config/scullery/plugins"
-ifacestyle="term"
-romdir="$HOME/Projects/Android/ROMS/"
-rompath="/this/is/not/a/real/folder/update.zip"
-version=""
-verbose=0
-installdeps="false"
-if [ -f "$HOME/.scullery" ]; then
-    . "$HOME/.scullery"
-elif [ -f /etc/scullery.rc ]; then
-    . /etc/scullery.rc
-else
-    echo "Critical Error! Configuration file not found. Please place a config
-file in either /etc/scullery.rc or \$HOME/.scullery"
-    exit 1
-fi
-
-show_help(){
-    echo "Welcome to Android Scullery! This is a fully re-written version of the
-Android Kitchen ROM customization tools. It's a GNU/Linux shell script written
-to target the Dash shell, but it should work with any shell. Since you're asking
-for help, I bet you want to know these parameters:
-        -h || -?)
-        -v) Run with verbose output.
-        -d) Specify a working directory.
-        -r) Specify a ROM directory where scullery will look for ROMs to modify.
-        -f) Specify a ROM file/folder to modify.
-        -l) Specify a path to look for the library of scripts.
-        -p) Specify a plugin directory to look for custom scripts in.
-        -i) Specify a style of interface to present when options are required.
-            term || cli : Run with terminal interface.
-            diag || wiz : Run with wizard-like GUI.
-            gui : Run with frontend.
-        -e) Install
-"
-}
-
-# A POSIX variable
-OPTIND=1         # Reset in case getopts has been used previously in the shell.
-
-# Initialize our own variables:
-verbose=0
-
-while getopts "h?vqdrflpie:" opt; do
-    case "$opt" in
-    h|\?)
-        show_help
-        exit 0
-        ;;
-    v)  verbose=1;;
-    q)  quiet=1;;
-    d)  workdir=$OPTARG;;
-    r)  romdir=$OPTARG;;
-    f)  rompath=$OPTARG;;
-    l)  scullibdir=$OPTARG;;
-    p)  scullplugdir=$OPTARG;;
-    i)  ifacestyle=$OPTARG;;
-    i)  installdeps="true";;
-    esac
-done
-
-shift $((OPTIND-1))
-
-[ "$1" = "--" ] && shift
-
-if [ "$installdeps" = "true" ]; then
-    sudo apt-get install abootimg android-tools*
-fi
-
-if [ ! -d "$scullibdir" ]; then
-    echo "Critical Error! Library folder not found!"
-    exit 2
-fi
-if [ ! -f "$scullibdir/extract_rom" ]; then
-    echo "Critical Error! Library folder not populated!"
-    exit 3
-fi
-if [ ! -d "$workdir" ]; then
-    mkdir -p "$workdir"
-fi
-if [ ! -d "$romdir" ]; then
-    mkdir -p "$romdir"
-    mkdir -p "$romdir/compiled_roms"
-fi
-if [ ! -d "$scullplugdir" ]; then
-    mkdir -p "$scullplugdir"
-fi
-if [ [ "$ifacestyle" = "term" ] || [ "$ifacestyle" = "cli" ] ]; then
-    if [ ! -f /usr/bin/wgdda ]; then
-        if [ -f /usr/bin/whiptail ]; then
-            alias dialog=whiptail
-        elif [ -f /usr/bin/dialog ]; then
-            alias dialog=dialog
-        else
-            echo "Critical Error! Interface Dependency not satisfied(Install either
-whiptail or dialog.)"
-            exit 4
-        fi
+if [ [ -z $scullery_launched ] && [ ! $scullery_launched] ]; then
+    apptitle="Android Scullery"
+    workdir=$(pwd)
+    scullibdir="/usr/lib/scullery"
+    scullplugdir="$HOME/.config/scullery/plugins"
+    ifacestyle="term"
+    romdir="$HOME/Projects/Android/ROMS/"
+    rompath="/this/is/not/a/real/folder/update.zip"
+    version=""
+    verbose=0
+    installdeps="false"
+    if [ -f "$HOME/.scullery" ]; then
+        . "$HOME/.scullery"
+    elif [ -f /etc/scullery.rc ]; then
+        . /etc/scullery.rc
     else
-        NOGUI_DIALOG="true"
-        . wgdda
+        echo "Critical Error! Configuration file not found. Please place a config
+    file in either /etc/scullery.rc or \$HOME/.scullery"
+        exit 1
     fi
-elif [ [ "$ifacestyle" = "dial" ] || [ "$ifacestyle" = "wiz" ] ]; then
-    if [ ! -f /usr/bin/wgdda ]; then
-        if [ -f /usr/bin/zenity ]; then
-            alias dialog=zenity
-        elif [ -f /usr/bin/xdialog ]; then
-            alias dialog=xdialog
-        else
-            echo "Critical Error! Interface Dependency not satisfied(Install either
-zenity or xdialog.)"
-            exit 4
-        fi
-    else
-        NOGUI_DIALOG=""
-        . wgdda
-    fi
-elif [ "$ifacestyle" = "gui" ]
-    echo "Critical Error! Interface not yet supported."
-    exit 5
-else 
-    echo "Critical Error! Invalid interface style specified."
-    exit 6
-fi
-. $scullibdir/functions.sh
-if [ -z "$quiet" ]; then
-    if [ -f "$rompath" ]; then
-        . $scullibdir/extract_rom && run_extract_rom $rompath
-    else
-        MENU_OPTION=$(dialog --title "$apptitle" --menu 14 80 12 \
-            1 "Setup Working Folder from ROM" \
-            2 "Root ROM" \
-            3 "Add BusyBox to ROM" \
-            4 "Disable startup sounds" \
-            5 "Zipalign applications" \
-            6 "Change ROM wipe status" \
-            7 "Change ROM name" \
-            8 "Show ROM info from Working Folder" \
-            9 "Advanced Options" \
-            10 "Porting Helpers(For gathering info to compile from source)" \
-            11 "Compile ROM" \
-            12 "Show detailed help" \
-            13 "Dump settings from Scullery" \
-                3>&1 1>&2 2>&3 3>&-)
-       case $MENU_OPTION in
-           1) . $scullibdir/extract_rom && run_extract_rom
-           2) echo "unimplemented option";; 
-           3) echo "unimplemented option";; 
-           4) echo "unimplemented option";; 
-           5) echo "unimplemented option";; 
-           6) echo "unimplemented option";; 
-           7) echo "unimplemented option";; 
-           8) echo "unimplemented option";;
-           10) echo "unimplemented option";;
-           11) echo "unimplemented option";;
-           12) echo "unimplemented option";;
-           13) echo "unimplemented option";;
-           *) echo "unimplemented option";;
+    
+    show_help(){
+        echo "Welcome to Android Scullery! This is a fully re-written version of the
+    Android Kitchen ROM customization tools. It's a GNU/Linux shell script written
+    to target the Dash shell, but it should work with any shell. Since you're asking
+    for help, I bet you want to know these parameters:
+            -h || -?)
+            -v) Run with verbose output.
+            -d) Specify a working directory.
+            -r) Specify a ROM directory where scullery will look for ROMs to modify.
+            -f) Specify a ROM file/folder to modify.
+            -l) Specify a path to look for the library of scripts.
+            -p) Specify a plugin directory to look for custom scripts in.
+            -i) Specify a style of interface to present when options are required.
+                term || cli : Run with terminal interface.
+                diag || wiz : Run with wizard-like GUI.
+                gui : Run with frontend.
+            -e) Install
+    "
+    }
+    
+    # A POSIX variable
+    OPTIND=1         # Reset in case getopts has been used previously in the shell.
+    
+    # Initialize our own variables:
+    verbose=0
+    
+    while getopts "h?vqdrflpie:" opt; do
+        case "$opt" in
+        h|\?)
+            show_help
+            exit 0
+            ;;
+        v)  verbose=1;;
+        q)  quiet=1;;
+        d)  workdir=$OPTARG;;
+        r)  romdir=$OPTARG;;
+        f)  rompath=$OPTARG;;
+        l)  scullibdir=$OPTARG;;
+        p)  scullplugdir=$OPTARG;;
+        i)  ifacestyle=$OPTARG;;
+        i)  installdeps="true";;
         esac
+    done
+    
+    shift $((OPTIND-1))
+    
+    [ "$1" = "--" ] && shift
+    
+    if [ "$installdeps" = "true" ]; then
+        sudo apt-get install abootimg android-tools*
+    fi
+    
+    if [ ! -d "$scullibdir" ]; then
+        echo "Critical Error! Library folder not found!"
+        exit 2
+    fi
+    if [ ! -f "$scullibdir/extract_rom" ]; then
+        echo "Critical Error! Library folder not populated!"
+        exit 3
+    fi
+    if [ ! -d "$workdir" ]; then
+        mkdir -p "$workdir"
+    fi
+    if [ ! -d "$romdir" ]; then
+        mkdir -p "$romdir"
+        mkdir -p "$romdir/compiled_roms"
+    fi
+    if [ ! -d "$scullplugdir" ]; then
+        mkdir -p "$scullplugdir"
+    fi
+    if [ [ "$ifacestyle" = "term" ] || [ "$ifacestyle" = "cli" ] ]; then
+        if [ ! -f /usr/bin/wgdda ]; then
+            if [ -f /usr/bin/whiptail ]; then
+                alias dialog=whiptail
+            elif [ -f /usr/bin/dialog ]; then
+                alias dialog=dialog
+            else
+                echo "Critical Error! Interface Dependency not satisfied(Install either
+    whiptail or dialog.)"
+                exit 4
+            fi
+        else
+            NOGUI_DIALOG="true"
+            . wgdda
+        fi
+    elif [ [ "$ifacestyle" = "dial" ] || [ "$ifacestyle" = "wiz" ] ]; then
+        if [ ! -f /usr/bin/wgdda ]; then
+            if [ -f /usr/bin/zenity ]; then
+                alias dialog=zenity
+            elif [ -f /usr/bin/xdialog ]; then
+                alias dialog=xdialog
+            else
+                echo "Critical Error! Interface Dependency not satisfied(Install either
+    zenity or xdialog.)"
+                exit 4
+            fi
+        else
+            NOGUI_DIALOG=""
+            . wgdda
+        fi
+    elif [ "$ifacestyle" = "gui" ]
+        echo "Critical Error! Interface not yet supported."
+        exit 5
+    else 
+        echo "Critical Error! Invalid interface style specified."
+        exit 6
+    fi
+    . $scullibdir/functions.sh
+    if [ -z "$quiet" ]; then
+        scullery_launched=true
+        if [ -f "$rompath" ]; then
+            . $scullibdir/extract_rom && run_extract_rom $rompath
+        else
+            MENU_OPTION=$(dialog --title "$apptitle" --menu 14 80 12 \
+                1 "Setup Working Folder from ROM" \
+                2 "Root ROM" \
+                3 "Add BusyBox to ROM" \
+                4 "Disable startup sounds" \
+                5 "Zipalign applications" \
+                6 "Change ROM wipe status" \
+                7 "Change ROM name" \
+                8 "Show ROM info from Working Folder" \
+                9 "Advanced Options" \
+                10 "Porting Helpers(For gathering info to compile from source)" \
+                11 "Compile ROM" \
+                12 "Show detailed help" \
+                13 "Dump settings from Scullery" \
+                    3>&1 1>&2 2>&3 3>&-)
+           case $MENU_OPTION in
+               1) . $scullibdir/extract_rom && run_extract_rom
+               2) echo "unimplemented option";; 
+               3) echo "unimplemented option";; 
+               4) echo "unimplemented option";; 
+               5) echo "unimplemented option";; 
+               6) echo "unimplemented option";; 
+               7) echo "unimplemented option";; 
+               8) echo "unimplemented option";;
+               10) echo "unimplemented option";;
+               11) echo "unimplemented option";;
+               12) echo "unimplemented option";;
+               13) echo "unimplemented option";;
+               *) echo "unimplemented option";;
+            esac
+        fi
     fi
 fi

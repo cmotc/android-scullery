@@ -22,8 +22,12 @@ extract_or_show(){
         3>&1 1>&2 2>&3 3>&- )
 }
 
+make_backup_rom(){
+    ROM_ZIP="$1"
+}
+
 actually_extract(){
-    echo "$1"
+    ROM_ZIP="$1"
 }
 
 loopover(){
