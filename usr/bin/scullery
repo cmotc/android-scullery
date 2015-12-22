@@ -8,6 +8,7 @@ ifacestyle="term"
 romdir="$HOME/Projects/Android/ROMS/"
 rompath="/this/is/not/a/real/folder/update.zip"
 version=""
+verbose=0
 installdeps="false"
 if [ -f "$HOME/.scullery" ]; then
     . "$HOME/.scullery"
@@ -45,13 +46,15 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 # Initialize our own variables:
 verbose=0
 
-while getopts "h?vdrflpie:" opt; do
+while getopts "h?vqdrflpie:" opt; do
     case "$opt" in
     h|\?)
         show_help
         exit 0
         ;;
     v)  verbose=1
+        ;;
+    q)  quiet=1
         ;;
     d)  workdir=$OPTARG
         ;;
@@ -134,23 +137,39 @@ else
     exit 6
 fi
 . $scullibdir/functions.sh
-if [ -f "$rompath" ]; then
-    . $scullibdir/extract_rom && run_extract_rom $rompath
-else
-    MENU_OPTION=$(dialog --title "$apptitle" --menu 14 80 12 \
-        1 "Setup Working Folder from ROM" \
-        2 "Root ROM" \
-        3 "Add BusyBox to ROM" \
-        4 "Disable startup sounds" \
-        5 "Zipalign applications" \
-        6 "Change ROM wipe status" \
-        7 "Change ROM name" \
-        8 "Show ROM info from Working Folder" \
-        9 "Advanced Options" \
-        10 "Porting Helpers(For gathering info to compile from source)" \
-        11 "Compile ROM" \
-        12 "Show detailed help" \
-        13 "Dump settings from Scullery" \
-    3>&1 1>&2 2>&3 3>&-)
-    . $scullibdir/extract_rom && run_extract_rom
+if [ -z "$quiet" ]; then
+    if [ -f "$rompath" ]; then
+        . $scullibdir/extract_rom && run_extract_rom $rompath
+    else
+        MENU_OPTION=$(dialog --title "$apptitle" --menu 14 80 12 \
+            1 "Setup Working Folder from ROM" \
+            2 "Root ROM" \
+            3 "Add BusyBox to ROM" \
+            4 "Disable startup sounds" \
+            5 "Zipalign applications" \
+            6 "Change ROM wipe status" \
+            7 "Change ROM name" \
+            8 "Show ROM info from Working Folder" \
+            9 "Advanced Options" \
+            10 "Porting Helpers(For gathering info to compile from source)" \
+            11 "Compile ROM" \
+            12 "Show detailed help" \
+            13 "Dump settings from Scullery" \
+                3>&1 1>&2 2>&3 3>&-)
+       case $MENU_OPTION in
+           1) . $scullibdir/extract_rom && run_extract_rom
+           2) echo "unimplemented option";; 
+           3) echo "unimplemented option";; 
+           4) echo "unimplemented option";; 
+           5) echo "unimplemented option";; 
+           6) echo "unimplemented option";; 
+           7) echo "unimplemented option";; 
+           8) echo "unimplemented option";;
+           10) echo "unimplemented option";;
+           11) echo "unimplemented option";;
+           12) echo "unimplemented option";;
+           13) echo "unimplemented option";;
+           *) echo "unimplemented option";;
+        esac
+    fi
 fi

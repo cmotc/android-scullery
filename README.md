@@ -62,9 +62,37 @@ Script Cloning Checklist
 
 ###Completed/In Progress
   * ./menu ~ ./usr/bin/scullery This script loads defaults, does argument
-    parsing, and launches the tools.
+    parsing, and launches the tools. (Done)
   * ./scripts/check\_rom ~ ./usr/lib/extract\_rom Some of this script's
-    functionality is also represented in libfunctions.sh.
+    functionality is also represented in libfunctions.sh. Mostly done.
+  * ./scripts/do\_root ~ This is one of the closest to the original kitchen
+    scripts. Pre-rooting a packaged ROM is pretty straightforward. Not started
+    yet.
+  * ./scripts/add\_busybox ~ This one is also close to the original kitchen 
+    scripts. Pre-rooting a packaged ROM is pretty straightforward. Not started
+    yet.
+  * ./scripts/disable\_sounds ~ This one has been rewritten to present
+    consistent dialog menus, and to provide more options than the original like
+    replacing the original sounds with automatic conversion. Not started yet.
+  * ./scripts/do\_zipalign ~ Zipalign the applications used in the ROM to
+    optimize performance. Not started yet.
+  * ./scripts/change\_wipe ~ Change the wipe status of the phone. Not started
+    yet.
+  * ./scripts/change\_rom\_name ~ Change the name of the ROM. Not started yet.
+  * ./scripts/show\_rom\_info ~ Show the status of the ROM in the working
+    directory. Not started yet.
+  * ./scripts/menu\_advanced ~ Show advanced menu, which includes things like
+    editing build.prop and running user-added plugins. Not started yet.
+  * ./scripts/menu\_legacy ~ deprecated. Instead it's been replaced with a set
+    of menus which guides the user through the ROM's files in order to detect
+    enough information to construce a device tree for a Source ROM. Not started
+    yet.
+  * ./scripts/build\_rom ~ Compiles the ROM in the selected working directory.
+    Not started yet.
+  * ./scripts/about ~ Roughly corresponds to the new help option, which also
+    displays version info. Not started yet.
+  * ./scripts/init\_kitchen ~ deprecated. Instead it's been replaced with an
+    option that the settings and status of the Scullery. Not started yet.
 
 ###Not Necessary/Not Targeted
 I don't care to bundle tools to target Windows. I also don't care to make it
@@ -86,9 +114,11 @@ following scripts have had their functionality significantly changed.
 Scullery API
 ------------
 Functions for implementing plugins to the kitchen. To include these in your code
-use:  
+use: 
 
-        . /usr/lib/scullery/libfunctions.sh  
+        #!/bin/sh
+        export quiet=1
+        . /usr/bin/scullery  
 
 note that this will not load your configuration file. That is included by the
 scullery script itself and isn't necessary to load. A thin wrapper should be

@@ -1,8 +1,6 @@
 #! /bin/sh
 #DO NOT INCLUDE THIS FILE IN YOUR OWN SCRIPTS(Unless you only want them to be
-#runnable in the kitchen. Instead include libfunctions.sh, which makes sure to 
-#load the correct default configuration options for running the scripts before
-#loading this exact file.
+#runnable in the kitchen. Instead just include
 
 #This creates a list of whitespace separated pairs representing the files in the
 #configured ROM search path($romdir). The output can be passed to dialog to

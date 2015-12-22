@@ -1,6 +1,6 @@
             lines  words   chars
-kitchen     484    1518   11299
-scullery    259     970    7620
+kitchen     439    1324    9643
+scullery    247     908    7187
 
 Linting currently cloned Android Kitchen scripts
 
