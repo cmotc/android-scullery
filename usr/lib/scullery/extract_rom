@@ -37,6 +37,7 @@ make_backup_working(){
 actually_extract(){
     ROM_ZIP="$1"
     make_backup_working "$ROM_ZIP"
+    do_unzip "$ROM_ZIP"
 }
 
 loopover(){

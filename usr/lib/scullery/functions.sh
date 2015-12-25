@@ -8,7 +8,7 @@
 checkout_romdir(){
     c=0
     tmp=""
-    for f in $romdir; do
+    for f in $SCULLERY_ROM_DIR; do
         c=$((c+1))
         tmp= $c $f 
     done
