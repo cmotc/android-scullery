@@ -1,14 +1,14 @@
 #! /bin/sh
 if [ [ -z $scullery_launched ] && [ ! $scullery_launched] ]; then
-    apptitle="Android Scullery"
-    workdir=$(pwd)
-    scullibdir="/usr/lib/scullery"
-    scullplugdir="$HOME/.config/scullery/plugins"
-    ifacestyle="term"
-    romdir="$HOME/Projects/Android/ROMS/"
-    rompath="/this/is/not/a/real/folder/update.zip"
-    version=""
-    verbose=0
+    SCULLERY_APP_TITLE="Android Scullery"
+    SCULLERY_WORKING_DIRECTORY=$(pwd)
+    SCULLERY_FUNCTIONS_DIR="/usr/lib/scullery"
+    SCULLERY_PLUGIN_DIR="$HOME/.config/scullery/plugins"
+    SCULLERY_INTERFACE_STYLE="term"
+    SCULLERY_ROM_DIR="$HOME/Projects/Android/ROMS/"
+    SCULLERY_ROM_PATH="/this/is/not/a/real/folder/update.zip"
+    version=".01"
+    SCULLERY_VERBOSE=0
     installdeps="false"
     if [ -f "$HOME/.scullery" ]; then
         . "$HOME/.scullery"
@@ -54,12 +54,12 @@ if [ [ -z $scullery_launched ] && [ ! $scullery_launched] ]; then
             ;;
         v)  verbose=1;;
         q)  quiet=1;;
-        d)  workdir=$OPTARG;;
-        r)  romdir=$OPTARG;;
-        f)  rompath=$OPTARG;;
-        l)  scullibdir=$OPTARG;;
-        p)  scullplugdir=$OPTARG;;
-        i)  ifacestyle=$OPTARG;;
+        d)  SCULLERY_WORKING_DIRECTORY=$OPTARG;;
+        r)  SCULLERY_ROM_DIR=$OPTARG;;
+        f)  SCULLERY_ROM_PATH=$OPTARG;;
+        l)  SCULLERY_FUNCTIONS_DIR=$OPTARG;;
+        p)  SCULLERY_PLUGIN_DIR=$OPTARG;;
+        i)  SCULLERY_INTERFACE_STYLE=$OPTARG;;
         i)  installdeps="true";;
         esac
     done
@@ -72,25 +72,25 @@ if [ [ -z $scullery_launched ] && [ ! $scullery_launched] ]; then
         sudo apt-get install abootimg android-tools*
     fi
     
-    if [ ! -d "$scullibdir" ]; then
+    if [ ! -d "$SCULLERY_FUNCTIONS_DIR" ]; then
         echo "Critical Error! Library folder not found!"
         exit 2
     fi
-    if [ ! -f "$scullibdir/extract_rom" ]; then
+    if [ ! -f "$SCULLERY_FUNCTIONS_DIR/extract_rom" ]; then
         echo "Critical Error! Library folder not populated!"
         exit 3
     fi
-    if [ ! -d "$workdir" ]; then
-        mkdir -p "$workdir"
+    if [ ! -d "$SCULLERY_WORKING_DIRECTORY" ]; then
+        mkdir -p "$SCULLERY_WORKING_DIRECTORY"
     fi
-    if [ ! -d "$romdir" ]; then
-        mkdir -p "$romdir"
-        mkdir -p "$romdir/compiled_roms"
+    if [ ! -d "$SCULLERY_ROM_DIR" ]; then
+        mkdir -p "$SCULLERY_ROM_DIR"
+        mkdir -p "$SCULLERY_ROM_DIR/compiled_roms"
     fi
     if [ ! -d "$scullplugdir" ]; then
         mkdir -p "$scullplugdir"
     fi
-    if [ [ "$ifacestyle" = "term" ] || [ "$ifacestyle" = "cli" ] ]; then
+    if [ [ "$SCULLERY_INTERFACE_STYLE" = "term" ] || [ "$SCULLERY_INTERFACE_STYLE" = "cli" ] ]; then
         if [ ! -f /usr/bin/wgdda ]; then
             if [ -f /usr/bin/whiptail ]; then
                 alias dialog=whiptail
@@ -105,7 +105,7 @@ if [ [ -z $scullery_launched ] && [ ! $scullery_launched] ]; then
             NOGUI_DIALOG="true"
             . wgdda
         fi
-    elif [ [ "$ifacestyle" = "dial" ] || [ "$ifacestyle" = "wiz" ] ]; then
+    elif [ [ "$SCULLERY_INTERFACE_STYLE" = "dial" ] || [ "$SCULLERY_INTERFACE_STYLE" = "wiz" ] ]; then
         if [ ! -f /usr/bin/wgdda ]; then
             if [ -f /usr/bin/zenity ]; then
                 alias dialog=zenity
@@ -120,20 +120,20 @@ if [ [ -z $scullery_launched ] && [ ! $scullery_launched] ]; then
             NOGUI_DIALOG=""
             . wgdda
         fi
-    elif [ "$ifacestyle" = "gui" ]
+    elif [ "$SCULLERY_INTERFACE_STYLE" = "gui" ]
         echo "Critical Error! Interface not yet supported."
         exit 5
     else 
         echo "Critical Error! Invalid interface style specified."
         exit 6
     fi
-    . $scullibdir/functions.sh
+    . $SCULLERY_FUNCTIONS_DIR/functions.sh
     if [ -z "$quiet" ]; then
         scullery_launched=true
         if [ -f "$rompath" ]; then
-            . $scullibdir/extract_rom && run_extract_rom $rompath
+            . $SCULLERY_FUNCTIONS_DIR/extract_rom && run_extract_rom $rompath
         else
-            MENU_OPTION=$(dialog --title "$apptitle" --menu 14 80 12 \
+            MENU_OPTION=$(dialog --title "$SCULLERY_APP_TITLE" --menu 14 80 12 \
                 1 "Setup Working Folder from ROM" \
                 2 "Root ROM" \
                 3 "Add BusyBox to ROM" \
@@ -149,7 +149,7 @@ if [ [ -z $scullery_launched ] && [ ! $scullery_launched] ]; then
                 13 "Dump settings from Scullery" \
                     3>&1 1>&2 2>&3 3>&-)
            case $MENU_OPTION in
-               1) . $scullibdir/extract_rom && run_extract_rom
+               1) . $SCULLERY_FUNCTIONS_DIR/extract_rom && run_extract_rom
                2) echo "unimplemented option";; 
                3) echo "unimplemented option";; 
                4) echo "unimplemented option";; 

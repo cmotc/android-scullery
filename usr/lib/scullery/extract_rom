@@ -6,13 +6,15 @@
 # scripts and functions here.
 
 EXTRACT_ROM_TITLE="CREATE WORKING FOLDER FOR ROM"
-EXTRACT_ROM_MESSAGE="Ensure there is at least one ROM under the \"$romdir\" folder!
+EXTRACT_ROM_MESSAGE="Ensure there is at least one ROM under the \"$SCULLERY_ROM_DIR\" folder!
 
 Select an option:
 "
 EXTRACT_OR_SHOW=0
+MAKE_BACKUP_ROM="Do you want to back up your existing working folder for your ROM?
+"
 
-ROM_FORMATS_MESSAGE=$(cat "$scullibdir/formats.txt")
+ROM_FORMATS_MESSAGE=$(cat "$SCULLERY_FUNCTIONS_DIR/formats.txt")
 echo $ROM_FORMATS_MESSAGE
 
 extract_or_show(){
@@ -22,12 +24,19 @@ extract_or_show(){
         3>&1 1>&2 2>&3 3>&- )
 }
 
-make_backup_rom(){
-    ROM_ZIP="$1"
+make_backup_working(){
+    MAKE_BACKUP=$(dialog --title "$EXTRACT_ROM_TITLE" --yesno "$MAKE_BACKUP_ROM" 14 80 \
+            3>&1 1>&2 2>&3 3>&-)    
+    if [ "$MAKE_BACKUP" = "yes" ]; then
+	FILE_PASSED="$1"
+        WORKING_FOLDER=filename="${FILE_PASSED##*/}"
+        do_backup "$WORKING_FOLDER"
+    fi
 }
 
 actually_extract(){
     ROM_ZIP="$1"
+    make_backup_working "$ROM_ZIP"
 }
 
 loopover(){
