@@ -53,6 +53,20 @@ Provide a better way of developing plugins and extensions to the Kitchen.
 Provide shell scripts with pre-built functions for querying and manipulating
 common Android ROM related needs.  
 
+Changes from Android Kitchen
+-----------------------------------------
+
+  * Working folders now end in .scullery rather than starting in WORKING_.
+  * No Bash-specific syntax
+  * Use Dialog or the equivalent available on the system to design and present
+    menus when running interactively.
+  * Can be installed system-wide and configured by a file in /etc/ or in the
+    user's home directory.
+  * Better backups and saves(compressed backups, configurable rotation, better
+    naming, automatic naming)
+  * Usable as library in other shell scripts(Automatic/schedulable builds for
+    easy updates)
+
 Equivalents Chart
 -----------------
 This is not a one-to-one recreation of the Android Kitchen, but where possible

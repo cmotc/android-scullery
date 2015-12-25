@@ -34,7 +34,22 @@ do_backup(){
 do_unpack(){
     COMPRESSED_FILE="$1"
     COMPRESSED_FILE_EXTENSION="${COMPRESSED_FILE##*.}"
-    if [ COMPRESSED_FILE_EXTENSION = ".tar.xz" ]; then
-        echo test
+    if [ "$COMPRESSED_FILE_EXTENSION" = ".zip" ]; then
+        FILE_NAME=" $COMPRESSED_FILE "
+    elif [ "$COMPRESSED_FILE_EXTENSION" = ".img" ]; then
+        FILE_NAME=" system.img boot.img"
+    elif [ "$COMPRESSED_FILE_EXTENSION" = ".scullery" ]; then
+        
     fi
+}
+
+img_to_dotscullery(){
+    SYS="$1"
+    BOOT="$2"
+    echo "test"
+}
+
+zip_to_dotscullery(){
+    ZIP="$1"
+    echo "test"
 }
