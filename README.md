@@ -81,8 +81,16 @@ Script Cloning Checklist
   * ./menu ~ ./usr/bin/scullery This script loads defaults, does argument
     parsing, and launches the tools. (Done)
   * ./scripts/check\_rom ~ ./usr/lib/extract\_rom Some of this script's
-    functionality is also represented in libfunctions.sh. Mostly done.
-    * scripts/make\_backup\_working
+    functionality is also represented in functions.sh. Mostly done.
+    * ./scripts/make\_backup\_working ~ This is subsumed into functions.sh, and
+      controlled by flows defined in the make\_backup\_working function in the
+      ./usr/lib/scullery/extract\_rom script.
+    * ./scripts/choose\_rom ~ By the time you get to this point, choose\_rom is
+      actually just an arrangement of primitives you already have for reading
+      the contents of folders and handling arguments. So again, it's in
+      functions.sh and controlled by extract\_rom.
+      * ./scripts/*\_files\_to\_working\_folder ~ Each of these scripts is
+      represented by a function in the functions.sh script.
   * ./scripts/do\_root ~ This is one of the closest to the original kitchen
     scripts. Pre-rooting a packaged ROM is pretty straightforward. Not started
     yet.
@@ -128,6 +136,8 @@ following scripts have had their functionality significantly changed.
   * ./scripts/check\_multiple\_working ~ This script is obsolete. It will be
     replaced with a menu which allows you to simply select the desired working
     folder.
+  * scripts/press\_enter ~ This is not necessary anymore, since we're using
+    dialogs and not reads.
 
 Scullery API
 ------------
