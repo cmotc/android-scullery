@@ -1,7 +1,7 @@
             lines  words   chars
 kitchen      439    1324    9643
-scullery     244     914    7861
-             195
+scullery     288    1090    9768
+             151
 
 Linting currently cloned Android Kitchen scripts
 
@@ -62,3 +62,4 @@ Linting current Android Scullery scripts
 
 
 Static analysis complete, shlint found no errors or bashisms in Scullery
+

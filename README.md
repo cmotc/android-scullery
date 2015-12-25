@@ -148,7 +148,7 @@ use:
         export quiet=1
         . /usr/bin/scullery
 
-note that this will not load your configuration file. That is included by the
-scullery script itself and isn't necessary to load. A thin wrapper should be
-possible to create around scripts created with these functions which allows you
-to run it without running the scullery.
+note that it isn't necessary to load your configuration file. That is included
+by the scullery script itself and isn't necessary to load. A thin wrapper should
+be possible to create around scripts created with these functions which allows
+you to run it without running the scullery.

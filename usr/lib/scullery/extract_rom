@@ -15,7 +15,6 @@ MAKE_BACKUP_ROM="Do you want to back up your existing working folder for your RO
 "
 
 ROM_FORMATS_MESSAGE=$(cat "$SCULLERY_FUNCTIONS_DIR/formats.txt")
-echo $ROM_FORMATS_MESSAGE
 
 extract_or_show(){
     EXTRACT_OR_SHOW=$(dialog --title "$EXTRACT_ROM_TITLE" --menu "$EXTRACT_ROM_MESSAGE" 14 60 2 \

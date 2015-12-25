@@ -26,3 +26,14 @@ Linting current Android Scullery scripts
 $SCULLINT
 "
 [ "$SCULLINT" = "" ]&& echo "Static analysis complete, shlint found no errors or bashisms in Scullery"
+for l in ./usr/lib/scullery/; do
+    /bin/sh -c ". $l >> test.log"
+done
+echo ""
+for r in ./usr/bin/; do
+    /bin/sh -c ". $r >> test.log"
+done
+TEST=$(cat test.log)
+if [ "$TEST" = "" ]; then
+    echo "If this file is empty, no errors were encountered loading the script." > test.log
+fi
